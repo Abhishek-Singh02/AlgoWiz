@@ -41,7 +41,7 @@ type PathfinderStoreType = {
 export const usePathfinder = createWithEqualityFn<PathfinderStoreType>()(
     subscribeWithSelector(
         devtools(
-            immer((set, get) => {
+            immer((set) => {
                 return {
                     algorithm: "DIJKSTRA",
                     maze: "NONE",
