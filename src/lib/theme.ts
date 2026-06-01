@@ -18,7 +18,7 @@ export const applyTheme = (theme: Theme) => {
     try {
         localStorage.setItem(STORAGE_KEY, theme);
     } catch {
-        /* ignore */
+        void 0;
     }
 };
 

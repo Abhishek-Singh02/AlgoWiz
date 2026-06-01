@@ -50,8 +50,6 @@ export type SortingFn = (
     input: SortingInput,
 ) => SortingOutput | Promise<SortingOutput>;
 
-// --- Trees ---
-
 export type TreeNodeData = {
     id: string;
     value: number | string;
@@ -98,8 +96,6 @@ export type TreeOutput = {
 };
 
 export type TreeFn = (input: TreeInput) => TreeOutput | Promise<TreeOutput>;
-
-// --- Graphs ---
 
 export type GraphNodeData = {
     id: string;
@@ -152,8 +148,6 @@ export type GraphOutput = {
 
 export type GraphFn = (input: GraphInput) => GraphOutput | Promise<GraphOutput>;
 
-// --- DP ---
-
 export type DpTableState = {
     rows: number;
     cols: number;
@@ -186,8 +180,6 @@ export type DpOutput = {
 };
 
 export type DpFn = (input: DpInput) => DpOutput | Promise<DpOutput>;
-
-// --- Maze ---
 
 export type MazeStep =
     | { kind: "wall"; tile: TileRef }

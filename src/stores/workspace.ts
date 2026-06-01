@@ -993,7 +993,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                         try {
                             localStorage.setItem(HAS_VISITED_KEY, "true");
                         } catch {
-                            /* ignore */
+                            void 0;
                         }
                         set((draft) => {
                             draft.ui.hasVisited = true;

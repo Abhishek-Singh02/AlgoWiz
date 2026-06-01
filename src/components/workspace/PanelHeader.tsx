@@ -18,7 +18,6 @@ export type PanelHeaderProps = {
     collapseLabel: string;
 };
 
-/** Open panel: label/tabs on the left, collapse control on the right (inner edge). */
 export const PanelHeader: FC<PanelHeaderProps> = ({
     children,
     side,
@@ -48,7 +47,6 @@ export type PanelCollapsedHeaderProps = {
     expandLabel: string;
 };
 
-/** Collapsed panel: same top slot, expand chevron only. */
 export const PanelCollapsedHeader: FC<PanelCollapsedHeaderProps> = ({
     side,
     onExpand,

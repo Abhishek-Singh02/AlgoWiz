@@ -38,7 +38,6 @@ export const WorkspaceLayout: FC = () => {
             <div className="h-dvh flex flex-col overflow-hidden bg-base">
                 <TopNav />
                 <div className="flex-1 min-h-0">
-                    {/* Desktop: fixed-width side panels + fluid center */}
                     <div
                         className="hidden lg:grid h-full min-h-0 w-full"
                         style={{
@@ -57,7 +56,6 @@ export const WorkspaceLayout: FC = () => {
                         </div>
                     </div>
 
-                    {/* Mobile */}
                     <div className="lg:hidden flex flex-col h-full min-h-0 w-full">
                         <p className="shrink-0 px-3 py-1.5 text-center text-[11px] text-amber/90 bg-amber-dim border-b border-amber/20">
                             AlgoWiz works best on desktop — full panels and timeline

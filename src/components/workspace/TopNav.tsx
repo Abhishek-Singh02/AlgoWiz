@@ -25,7 +25,7 @@ export const TopNav: FC = () => {
                     <span className="text-emerald text-xs font-bold">◇</span>
                 </div>
                 <span className="font-serif text-xl text-text-primary hidden sm:block">
-                    AlgoWiz
+                    Algo<span className="text-emerald">Wiz</span>
                 </span>
             </div>
             <button
