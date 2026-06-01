@@ -1,80 +1,95 @@
 import type { Config } from "tailwindcss";
+import tailwindcssAnimate from "tailwindcss-animate";
 
 export default {
-    content: ["./src/**/*.{js,jsx,ts,tsx}"],
+    darkMode: ["class"],
+    content: ["./index.html", "./src/**/*.{js,jsx,ts,tsx}"],
     theme: {
         extend: {
+            colors: {
+                base: "var(--bg-base)",
+                elevated: "var(--bg-elevated)",
+                overlay: "var(--bg-overlay)",
+                subtle: "var(--bg-subtle)",
+                "text-primary": "var(--text-primary)",
+                "text-secondary": "var(--text-secondary)",
+                "text-tertiary": "var(--text-tertiary)",
+                "text-disabled": "var(--text-disabled)",
+                "text-on-accent": "var(--text-on-accent)",
+                border: {
+                    subtle: "var(--border-subtle)",
+                    DEFAULT: "var(--border-default)",
+                    strong: "var(--border-strong)",
+                },
+                emerald: {
+                    DEFAULT: "var(--accent-emerald)",
+                    dim: "var(--emerald-dim)",
+                    glow: "var(--emerald-glow)",
+                },
+                violet: {
+                    DEFAULT: "var(--accent-violet)",
+                    dim: "var(--violet-dim)",
+                },
+                sky: {
+                    DEFAULT: "var(--accent-sky)",
+                    dim: "var(--sky-dim)",
+                },
+                amber: {
+                    DEFAULT: "var(--accent-amber)",
+                    dim: "var(--amber-dim)",
+                },
+                rose: {
+                    DEFAULT: "var(--accent-rose)",
+                    dim: "var(--rose-dim)",
+                },
+            },
+            boxShadow: {
+                surface: "var(--shadow-sm)",
+                panel: "var(--shadow-md)",
+            },
+            fontFamily: {
+                serif: ['"Instrument Serif"', "serif"],
+                sans: ['"DM Sans"', "sans-serif"],
+                mono: ['"Geist Mono"', "monospace"],
+            },
+            borderRadius: {
+                sm: "4px",
+                md: "7px",
+                lg: "11px",
+                xl: "16px",
+            },
             keyframes: {
                 wall: {
-                    "0%": {
-                        transform: "scale(0.3)",
-                        backgroundColor: "rgba(255, 255, 255, 0.2)",
-                        backdropFilter: "blur(2px)",
-                        pointerEvents: "none",
-                    },
-                    "50%": {
-                        transform: "scale(1.2)",
-                        backgroundColor: "rgba(255, 255, 255, 0.3)",
-                        backdropFilter: "blur(4px)",
-                        pointerEvents: "none",
-                    },
-                    "75%": {
-                        transform: "scale(1.5)",
-                        backgroundColor: "rgba(255, 255, 255, 0.4)",
-                        backdropFilter: "blur(6px)",
-                        pointerEvents: "none",
-                    },
-                    "100%": {
-                        transform: "scale(1)",
-                        backgroundColor: "rgba(255, 255, 255, 0.25)",
-                        backdropFilter: "blur(3px)",
-                        pointerEvents: "auto",
-                    },
+                    "0%": { transform: "scale(0.3)", opacity: "0.5" },
+                    "50%": { transform: "scale(1.2)" },
+                    "100%": { transform: "scale(1)", opacity: "1" },
                 },
                 traversed: {
-                    "0%": {
-                        transform: "scale(0.3)",
-                        backgroundColor: "rgba(255, 255, 255, 0.2)",
-                        backdropFilter: "blur(2px)",
-                        borderRadius: "100%",
-                    },
-                    "50%": {
-                        transform: "scale(1.2)",
-                        backgroundColor: "rgba(255, 255, 255, 0.3)",
-                        backdropFilter: "blur(4px)",
-                    },
-                    "75%": {
-                        transform: "scale(1.5)",
-                        backgroundColor: "rgba(255, 255, 255, 0.4)",
-                        backdropFilter: "blur(6px)",
-                    },
-                    "100%": {
-                        transform: "scale(1)",
-                        backgroundColor: "rgba(255, 255, 255, 0.25)",
-                        backdropFilter: "blur(3px)",
-                    },
+                    "0%": { transform: "scale(0.85)", opacity: "0.5" },
+                    "50%": { transform: "scale(1.05)" },
+                    "100%": { transform: "scale(1)", opacity: "1" },
                 },
                 path: {
                     "0%": {
-                        backgroundColor: "rgba(74, 222, 128, 0.2)", // Pastel green (soft)
+                        backgroundColor: "var(--emerald-dim)",
                         transform: "scale(0.9)",
                     },
                     "50%": {
-                        backgroundColor: "rgba(74, 222, 128, 0.4)", // Brighter pastel green
+                        backgroundColor: "var(--emerald-glow)",
                         transform: "scale(1.1)",
                     },
                     "100%": {
-                        backgroundColor: "rgba(74, 222, 128, 0.6)", // Final pastel green
+                        backgroundColor: "var(--accent-emerald)",
                         transform: "scale(1)",
                     },
                 },
             },
             animation: {
-                wall: "wall 0.3s ease-out 0s 1 alternate forwards",
-                traversed: "traversed 1.2s ease-in-out 0s 1 forwards",
-                path: "path 0.4s ease-in-out 0s 1 forwards",
+                wall: "wall 0.3s ease-out forwards",
+                traversed: "traversed 0.08s ease-in-out forwards",
+                path: "path 0.04s ease-in-out forwards",
             },
         },
     },
-    plugins: [],
+    plugins: [tailwindcssAnimate],
 } satisfies Config;

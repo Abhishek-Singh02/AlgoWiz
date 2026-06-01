@@ -1,2 +1,1 @@
-export * from "./sorting";
-export * from "./pathfinder";
+// Pages removed — single workspace in App.tsx

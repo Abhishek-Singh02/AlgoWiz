@@ -1,5 +1,5 @@
 import { MAX_ROWS } from "@constants";
-import { usePathfinder } from "@stores";
+import { useWorkspace } from "@stores";
 import { cn } from "@utils";
 import { FC, HTMLProps } from "react";
 
@@ -9,23 +9,40 @@ export type TileProps = {
 } & HTMLProps<HTMLDivElement>;
 
 export const Tile: FC<TileProps> = ({ row, col, ...props }) => {
-    const tile = usePathfinder(({ grid }) => grid[row][col]);
-    const { isStart, isEnd, isWall, isPath, isTraversed } = tile;
+    const tile = useWorkspace(({ grid }) => grid[row][col]);
+    const { isStart, isEnd, isWall, isPath, isTraversed, isFrontier } = tile;
 
     return (
         <div
             {...props}
-            className={cn([
-                "lg:w-8 md:w-6 w-4 aspect-square border-t border-r border-neutral-600",
-                isStart && "bg-green-500",
-                isEnd && "bg-red-600",
-                isWall && "animate-wall",
-                isPath && "bg-green-600",
-                isTraversed && "bg-cyan-500",
-                row === MAX_ROWS - 1 && col === 0 && "border-l",
-                row === MAX_ROWS - 1 && "border-b",
-                col === 0 && "border-l",
-            ])}
+            className={cn(
+                "lg:w-7 md:w-6 w-4 aspect-square border-t border-r border-white/[0.06]",
+                isStart && "bg-emerald z-10",
+                isEnd && "bg-rose z-10",
+                isWall && "bg-overlay animate-wall",
+                !isStart &&
+                    !isEnd &&
+                    !isWall &&
+                    isFrontier &&
+                    "bg-violet/60 animate-traversed",
+                !isStart &&
+                    !isEnd &&
+                    !isWall &&
+                    isTraversed &&
+                    !isFrontier &&
+                    "bg-sky/50 animate-traversed",
+                !isStart && !isEnd && !isWall && isPath && "bg-emerald/80 animate-path",
+                !isStart &&
+                    !isEnd &&
+                    !isWall &&
+                    !isPath &&
+                    !isTraversed &&
+                    !isFrontier &&
+                    "bg-subtle/50",
+                row === MAX_ROWS - 1 && col === 0 && "border-l border-white/[0.06]",
+                row === MAX_ROWS - 1 && "border-b border-white/[0.06]",
+                col === 0 && "border-l border-white/[0.06]",
+            )}
         />
     );
 };

@@ -5,8 +5,10 @@ export type TileType = {
     isEnd: boolean;
     isPath?: boolean;
     isTraversed?: boolean;
+    isFrontier?: boolean;
     isWall: boolean;
     distance: number;
     parent?: TileType;
 };
+
 export type GridType = TileType[][];
