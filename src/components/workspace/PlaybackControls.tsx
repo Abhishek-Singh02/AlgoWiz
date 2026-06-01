@@ -69,6 +69,7 @@ export const PlaybackControls: FC = () => {
                 <Button
                     variant="reset"
                     size="sm"
+                    className="w-fit px-2"
                     onClick={() => reloadCategoryPreset()}
                     disabled={isRunning}
                 >
@@ -76,7 +77,7 @@ export const PlaybackControls: FC = () => {
                     Reset preset
                 </Button>
             )}
-            <Button variant="reset" onClick={() => resetGrid()} disabled={isRunning}>
+            <Button variant="reset" size="sm"onClick={() => resetGrid()} disabled={isRunning}>
                 <RotateCcw className="h-3.5 w-3.5" />
             </Button>
             <div className="flex items-center gap-0.5 border-l border-border pl-2">

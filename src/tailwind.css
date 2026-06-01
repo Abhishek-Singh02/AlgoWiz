@@ -30,6 +30,7 @@
         --rose-dim: rgba(244, 63, 94, 0.14);
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
         --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+        --canvas-grid-line: rgba(255, 255, 255, 0.055);
     }
 
     .light {
@@ -59,6 +60,7 @@
         --rose-dim: rgba(225, 29, 72, 0.1);
         --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
         --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --canvas-grid-line: rgba(0, 0, 0, 0.07);
     }
 
     * {
@@ -77,26 +79,89 @@
 }
 
 @layer components {
-    .react-flow {
-        --xy-background-color: transparent;
-        --xy-node-background-color: var(--bg-elevated);
-        --xy-edge-stroke: var(--border-default);
+    .flow-canvas .react-flow,
+    .flow-canvas .react-flow.dark {
+        --xy-background-color-default: transparent;
+        --xy-edge-stroke-default: var(--border-default);
+        --xy-controls-button-background-color-default: var(--bg-overlay);
+        --xy-controls-button-background-color-hover-default: var(--bg-subtle);
+        --xy-controls-button-color-default: var(--text-secondary);
+        --xy-controls-button-color-hover-default: var(--text-primary);
+        --xy-controls-button-border-color-default: var(--border-subtle);
+        --xy-controls-box-shadow-default: var(--shadow-sm);
+        --xy-edge-label-background-color-default: var(--bg-elevated);
+        --xy-edge-label-color-default: var(--text-secondary);
     }
 
-    .react-flow__controls {
-        background: var(--bg-elevated);
-        border: 1px solid var(--border-subtle);
-        box-shadow: var(--shadow-sm);
+    .flow-canvas__grid {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-color: var(--bg-base);
+        background-image:
+            linear-gradient(var(--canvas-grid-line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--canvas-grid-line) 1px, transparent 1px);
+        background-size: 40px 40px;
     }
 
-    .react-flow__controls-button {
-        background: var(--bg-elevated);
+    .flow-canvas__grid::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            ellipse 75% 65% at 50% 50%,
+            var(--emerald-dim),
+            transparent 95%
+        );
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .flow-canvas .flow-canvas__viewport {
+        position: relative;
+        z-index: 1;
+        background: transparent !important;
+    }
+
+    .flow-canvas .react-flow__background {
+        display: none;
+    }
+
+    .flow-canvas .flow-canvas__controls {
+        border-radius: 7px;
+        overflow: hidden;
+        border: 1px solid var(--border-default);
+        box-shadow: var(--shadow-md);
+    }
+
+    .flow-canvas .react-flow__controls-button {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         border-bottom: 1px solid var(--border-subtle);
-        fill: var(--text-secondary);
+        background: var(
+            --xy-controls-button-background-color,
+            var(--bg-elevated)
+        );
+        color: var(--text-secondary);
     }
 
-    .react-flow__controls-button:hover {
+    .flow-canvas .react-flow__controls-button:last-child {
+        border-bottom: none;
+    }
+
+    .flow-canvas .react-flow__controls-button:hover {
         background: var(--bg-overlay);
+        color: var(--text-primary);
+    }
+
+    .flow-canvas .react-flow__controls-button svg {
+        fill: currentColor;
+        max-width: 14px;
+        max-height: 14px;
     }
 
     .surface-elevated {

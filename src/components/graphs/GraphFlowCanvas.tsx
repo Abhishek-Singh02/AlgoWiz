@@ -1,16 +1,10 @@
+import { FlowCanvasShell } from "@components/flow/FlowCanvasShell";
 import {
     GraphFlowNode,
     type GraphFlowNodeData,
 } from "@components/graphs/GraphFlowNode";
 import { useWorkspace } from "@stores";
-import {
-    Background,
-    Controls,
-    ReactFlow,
-    ReactFlowProvider,
-    type Edge,
-    type Node,
-} from "@xyflow/react";
+import { ReactFlowProvider, type Edge, type Node } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { FC, useMemo } from "react";
 
@@ -25,7 +19,10 @@ const GraphFlowInner: FC = () => {
         const rfNodes: Node<GraphFlowNodeData>[] = graphState.nodes.map((n, i) => ({
             id: n.id,
             type: "graphNode",
-            position: { x: n.x ?? 80 + (i % 3) * 120, y: n.y ?? 60 + Math.floor(i / 3) * 100 },
+            position: {
+                x: n.x ?? 80 + (i % 3) * 120,
+                y: n.y ?? 60 + Math.floor(i / 3) * 100,
+            },
             data: {
                 label: n.label,
                 nodeId: n.id,
@@ -43,6 +40,12 @@ const GraphFlowInner: FC = () => {
                 target: e.target,
                 label: showWeights && e.weight != null ? String(e.weight) : undefined,
                 labelStyle: { fill: "var(--text-secondary)", fontSize: 10 },
+                labelBgStyle: {
+                    fill: "var(--bg-elevated)",
+                    fillOpacity: 0.95,
+                },
+                labelBgPadding: [4, 6] as [number, number],
+                labelBgBorderRadius: 4,
                 animated: highlighted && !inMst,
                 style: {
                     stroke: inMst
@@ -61,24 +64,17 @@ const GraphFlowInner: FC = () => {
     }, [graphState, graphVisual, showWeights]);
 
     return (
-        <div className="flex flex-1 min-h-[360px] w-full p-4 md:p-6">
-            <div className="flex-1 rounded-lg border border-border bg-overlay/40 shadow-panel overflow-hidden min-h-[320px]">
-                <ReactFlow
-                    nodes={nodes}
-                    edges={edges}
-                    nodeTypes={nodeTypes}
-                    fitView
-                    fitViewOptions={{ padding: 0.25 }}
-                    nodesDraggable={false}
-                    nodesConnectable={false}
-                    elementsSelectable={false}
-                    proOptions={{ hideAttribution: true }}
-                >
-                    <Background color="var(--border-subtle)" gap={16} />
-                    <Controls showInteractive={false} className="!bg-elevated !border-border" />
-                </ReactFlow>
-            </div>
-        </div>
+        <FlowCanvasShell
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            fitView
+            fitViewOptions={{ padding: 0.25 }}
+            nodesDraggable={false}
+            nodesConnectable={false}
+            elementsSelectable={false}
+            proOptions={{ hideAttribution: true }}
+        />
     );
 };
 

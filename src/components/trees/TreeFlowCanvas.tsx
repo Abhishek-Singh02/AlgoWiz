@@ -1,14 +1,8 @@
+import { FlowCanvasShell } from "@components/flow/FlowCanvasShell";
 import { TreeFlowNode, type TreeFlowNodeData } from "@components/trees/TreeFlowNode";
 import { layoutTree } from "@components/trees/treeLayout";
 import { useWorkspace } from "@stores";
-import {
-    Background,
-    Controls,
-    ReactFlow,
-    ReactFlowProvider,
-    type Edge,
-    type Node,
-} from "@xyflow/react";
+import { ReactFlowProvider, type Edge, type Node } from "@xyflow/react";
 import "@xyflow/react/dist/style.css";
 import { FC, useMemo } from "react";
 
@@ -70,25 +64,20 @@ const TreeFlowInner: FC = () => {
     }, [treeState, treeVisual]);
 
     return (
-        <div className="flex flex-1 min-h-[360px] w-full p-4 md:p-6">
-            <div className="flex-1 rounded-lg border border-border bg-overlay/40 shadow-panel overflow-hidden min-h-[320px]">
-                <ReactFlow
-                    nodes={nodes}
-                    edges={edges}
-                    nodeTypes={nodeTypes}
-                    fitView
-                    fitViewOptions={{ padding: 0.3 }}
-                    nodesDraggable={false}
-                    nodesConnectable={false}
-                    elementsSelectable={false}
-                    proOptions={{ hideAttribution: true }}
-                    className="bg-transparent"
-                >
-                    <Background color="var(--border-subtle)" gap={16} />
-                    <Controls showInteractive={false} className="!bg-elevated !border-border" />
-                </ReactFlow>
-            </div>
-        </div>
+        <FlowCanvasShell
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            fitView
+            fitViewOptions={{ padding: 0.3 }}
+            nodesDraggable={false}
+            nodesConnectable={false}
+            elementsSelectable={false}
+            proOptions={{ hideAttribution: true }}
+            defaultEdgeOptions={{
+                style: { stroke: "var(--border-default)", strokeWidth: 1.5 },
+            }}
+        />
     );
 };
 
