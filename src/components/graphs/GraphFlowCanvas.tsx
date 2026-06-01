@@ -1,0 +1,85 @@
+import { FlowCanvasShell } from "@components/flow/FlowCanvasShell";
+import {
+    GraphFlowNode,
+    type GraphFlowNodeData,
+} from "@components/graphs/GraphFlowNode";
+import { useWorkspace } from "@stores";
+import { ReactFlowProvider, type Edge, type Node } from "@xyflow/react";
+import "@xyflow/react/dist/style.css";
+import { FC, useMemo } from "react";
+
+const nodeTypes = { graphNode: GraphFlowNode };
+
+const GraphFlowInner: FC = () => {
+    const graphState = useWorkspace(({ graphState }) => graphState);
+    const graphVisual = useWorkspace(({ graphVisual }) => graphVisual);
+    const showWeights = useWorkspace(({ graphConfig }) => graphConfig.showWeights);
+
+    const { nodes, edges } = useMemo(() => {
+        const rfNodes: Node<GraphFlowNodeData>[] = graphState.nodes.map((n, i) => ({
+            id: n.id,
+            type: "graphNode",
+            position: {
+                x: n.x ?? 80 + (i % 3) * 120,
+                y: n.y ?? 60 + Math.floor(i / 3) * 100,
+            },
+            data: {
+                label: n.label,
+                nodeId: n.id,
+                visual: graphVisual,
+            },
+        }));
+
+        const rfEdges: Edge[] = graphState.edges.map((e) => {
+            const inMst = graphVisual.mstEdges.includes(e.id);
+            const relaxed = graphVisual.relaxedEdges.includes(e.id);
+            const highlighted = graphVisual.highlightedEdges.includes(e.id);
+            return {
+                id: e.id,
+                source: e.source,
+                target: e.target,
+                label: showWeights && e.weight != null ? String(e.weight) : undefined,
+                labelStyle: { fill: "var(--text-secondary)", fontSize: 10 },
+                labelBgStyle: {
+                    fill: "var(--bg-elevated)",
+                    fillOpacity: 0.95,
+                },
+                labelBgPadding: [4, 6] as [number, number],
+                labelBgBorderRadius: 4,
+                animated: highlighted && !inMst,
+                style: {
+                    stroke: inMst
+                        ? "var(--accent-emerald)"
+                        : relaxed
+                          ? "var(--accent-violet)"
+                          : highlighted
+                            ? "var(--accent-amber)"
+                            : "var(--border-default)",
+                    strokeWidth: inMst || highlighted ? 2.5 : 1.5,
+                },
+            };
+        });
+
+        return { nodes: rfNodes, edges: rfEdges };
+    }, [graphState, graphVisual, showWeights]);
+
+    return (
+        <FlowCanvasShell
+            nodes={nodes}
+            edges={edges}
+            nodeTypes={nodeTypes}
+            fitView
+            fitViewOptions={{ padding: 0.25 }}
+            nodesDraggable={false}
+            nodesConnectable={false}
+            elementsSelectable={false}
+            proOptions={{ hideAttribution: true }}
+        />
+    );
+};
+
+export const GraphFlowCanvas: FC = () => (
+    <ReactFlowProvider>
+        <GraphFlowInner />
+    </ReactFlowProvider>
+);

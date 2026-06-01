@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    .dark {
+        color-scheme: dark;
+        --bg-base: #0a0a0b;
+        --bg-elevated: #111113;
+        --bg-overlay: #18181b;
+        --bg-subtle: #1c1c1f;
+        --border-subtle: rgba(255, 255, 255, 0.06);
+        --border-default: rgba(255, 255, 255, 0.1);
+        --border-strong: rgba(255, 255, 255, 0.16);
+        --text-primary: #f0f0f2;
+        --text-secondary: #8b8b99;
+        --text-tertiary: #52525e;
+        --text-disabled: #3a3a44;
+        --text-on-accent: #0a0a0b;
+        --accent-emerald: #10b981;
+        --emerald-dim: rgba(16, 185, 129, 0.14);
+        --emerald-glow: rgba(16, 185, 129, 0.25);
+        --accent-violet: #8b5cf6;
+        --violet-dim: rgba(139, 92, 246, 0.14);
+        --accent-sky: #38bdf8;
+        --sky-dim: rgba(56, 189, 248, 0.14);
+        --accent-amber: #f59e0b;
+        --amber-dim: rgba(245, 158, 11, 0.14);
+        --accent-rose: #f43f5e;
+        --rose-dim: rgba(244, 63, 94, 0.14);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+        --canvas-grid-line: rgba(255, 255, 255, 0.055);
+    }
+
+    .light {
+        color-scheme: light;
+        --bg-base: #f4f4f5;
+        --bg-elevated: #ffffff;
+        --bg-overlay: #ececef;
+        --bg-subtle: #e4e4e7;
+        --border-subtle: rgba(0, 0, 0, 0.08);
+        --border-default: rgba(0, 0, 0, 0.12);
+        --border-strong: rgba(0, 0, 0, 0.18);
+        --text-primary: #18181b;
+        --text-secondary: #52525b;
+        --text-tertiary: #71717a;
+        --text-disabled: #a1a1aa;
+        --text-on-accent: #ffffff;
+        --accent-emerald: #059669;
+        --emerald-dim: rgba(5, 150, 105, 0.12);
+        --emerald-glow: rgba(5, 150, 105, 0.2);
+        --accent-violet: #7c3aed;
+        --violet-dim: rgba(124, 58, 237, 0.1);
+        --accent-sky: #0284c7;
+        --sky-dim: rgba(2, 132, 199, 0.1);
+        --accent-amber: #d97706;
+        --amber-dim: rgba(217, 119, 6, 0.12);
+        --accent-rose: #e11d48;
+        --rose-dim: rgba(225, 29, 72, 0.1);
+        --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.06);
+        --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.08);
+        --canvas-grid-line: rgba(0, 0, 0, 0.07);
+    }
+
+    * {
+        border-color: var(--border-subtle);
+    }
+
+    html {
+        @apply scroll-smooth;
+    }
+
+    body {
+        @apply font-sans text-[13px] antialiased;
+        background-color: var(--bg-base);
+        color: var(--text-primary);
+    }
+}
+
+@layer components {
+    .flow-canvas .react-flow,
+    .flow-canvas .react-flow.dark {
+        --xy-background-color-default: transparent;
+        --xy-edge-stroke-default: var(--border-default);
+        --xy-controls-button-background-color-default: var(--bg-overlay);
+        --xy-controls-button-background-color-hover-default: var(--bg-subtle);
+        --xy-controls-button-color-default: var(--text-secondary);
+        --xy-controls-button-color-hover-default: var(--text-primary);
+        --xy-controls-button-border-color-default: var(--border-subtle);
+        --xy-controls-box-shadow-default: var(--shadow-sm);
+        --xy-edge-label-background-color-default: var(--bg-elevated);
+        --xy-edge-label-color-default: var(--text-secondary);
+    }
+
+    .flow-canvas__grid {
+        position: absolute;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none;
+        background-color: var(--bg-base);
+        background-image:
+            linear-gradient(var(--canvas-grid-line) 1px, transparent 1px),
+            linear-gradient(90deg, var(--canvas-grid-line) 1px, transparent 1px);
+        background-size: 40px 40px;
+    }
+
+    .flow-canvas__grid::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            ellipse 75% 65% at 50% 50%,
+            var(--emerald-dim),
+            transparent 95%
+        );
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    .flow-canvas .flow-canvas__viewport {
+        position: relative;
+        z-index: 1;
+        background: transparent !important;
+    }
+
+    .flow-canvas .react-flow__background {
+        display: none;
+    }
+
+    .flow-canvas .flow-canvas__controls {
+        border-radius: 7px;
+        overflow: hidden;
+        border: 1px solid var(--border-default);
+        box-shadow: var(--shadow-md);
+    }
+
+    .flow-canvas .react-flow__controls-button {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px solid var(--border-subtle);
+        background: var(
+            --xy-controls-button-background-color,
+            var(--bg-elevated)
+        );
+        color: var(--text-secondary);
+    }
+
+    .flow-canvas .react-flow__controls-button:last-child {
+        border-bottom: none;
+    }
+
+    .flow-canvas .react-flow__controls-button:hover {
+        background: var(--bg-overlay);
+        color: var(--text-primary);
+    }
+
+    .flow-canvas .react-flow__controls-button svg {
+        fill: currentColor;
+        max-width: 14px;
+        max-height: 14px;
+    }
+
+    .surface-elevated {
+        background-color: var(--bg-elevated);
+        border: 1px solid var(--border-subtle);
+        box-shadow: var(--shadow-sm);
+    }
+
+    .surface-overlay {
+        background-color: var(--bg-overlay);
+        border: 1px solid var(--border-subtle);
+    }
+}
