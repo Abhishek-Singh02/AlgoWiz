@@ -1,5 +1,9 @@
 import { Badge, SegmentedControl, Switch } from "@components/ui";
 import {
+    PanelCollapsedHeader,
+    PanelHeader,
+} from "@components/workspace/PanelHeader";
+import {
     getAlgorithmById,
     HEURISTIC_OPTIONS,
     type AlgorithmTag,
@@ -7,10 +11,6 @@ import {
 import { useWorkspace, useWorkspaceActions } from "@stores";
 import { cn } from "@utils";
 import { AnimatePresence, motion } from "framer-motion";
-import {
-    PanelCollapsedHeader,
-    PanelHeader,
-} from "@components/workspace/PanelHeader";
 import { FC } from "react";
 
 const tagVariant: Record<
@@ -347,27 +347,27 @@ export const LearningPanel: FC<LearningPanelProps> = ({
                             {learningTab === "complexity" && (
                                 <div className="space-y-4 font-mono text-sm">
                                     <div>
-                                        <p className="text-text-tertiary text-xs uppercase mb-1">
+                                        <p className="text-text-tertiary text-[11px] uppercase mb-1">
                                             Time
                                         </p>
-                                        <p className="text-emerald text-lg">
+                                        <p className="text-emerald text-md">
                                             {algo.timeComplexity}
                                         </p>
                                     </div>
                                     <div>
-                                        <p className="text-text-tertiary text-xs uppercase mb-1">
+                                        <p className="text-text-tertiary text-[11px] uppercase mb-1">
                                             Space
                                         </p>
-                                        <p className="text-emerald text-lg">
+                                        <p className="text-emerald text-md">
                                             {algo.spaceComplexity}
                                         </p>
                                     </div>
                                     {algo.bestCase && (
                                         <div>
-                                            <p className="text-text-tertiary text-xs uppercase mb-1">
+                                            <p className="text-text-tertiary text-[11px] uppercase mb-1">
                                                 Best case
                                             </p>
-                                            <p className="text-emerald text-lg">
+                                            <p className="text-emerald text-md">
                                                 {algo.bestCase}
                                             </p>
                                         </div>
