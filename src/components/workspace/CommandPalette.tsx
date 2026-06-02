@@ -1,7 +1,7 @@
 import { ALL_ALGORITHMS } from "@config/algorithms";
 import { useWorkspace, useWorkspaceActions } from "@stores";
 import { Command } from "cmdk";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { RotateCcw, Sun, Zap } from "lucide-react";
 import { FC, useEffect } from "react";
 
@@ -94,9 +94,9 @@ export const CommandPalette: FC = () => {
                                                 className="flex items-center justify-between gap-2 px-2 py-2 rounded-md text-[13px] text-text-secondary aria-selected:bg-emerald-dim aria-selected:text-text-primary cursor-pointer"
                                             >
                                                 <span>{algo.name}</span>
-                                                {algo.shortcut && (
+                                                {algo.category && (
                                                     <kbd className="font-mono text-[10px] bg-subtle px-1.5 rounded border border-white/10">
-                                                        {algo.shortcut}
+                                                        {algo.category.length > 2 ? algo.category.charAt(0).toUpperCase() + algo.category.slice(1) : algo.category.toUpperCase()}
                                                     </kbd>
                                                 )}
                                             </Command.Item>
@@ -118,7 +118,6 @@ export const CommandPalette: FC = () => {
                                                 <Zap className="h-4 w-4 text-emerald" />
                                                 Generate Maze
                                             </span>
-                                            <kbd className="font-mono text-[10px]">⌘G</kbd>
                                         </Command.Item>
                                         <Command.Item
                                             value="reset"
@@ -132,7 +131,6 @@ export const CommandPalette: FC = () => {
                                                 <RotateCcw className="h-4 w-4" />
                                                 Reset Visualization
                                             </span>
-                                            <kbd className="font-mono text-[10px]">⌘R</kbd>
                                         </Command.Item>
                                         <Command.Item
                                             value="theme"
@@ -146,7 +144,6 @@ export const CommandPalette: FC = () => {
                                                 <Sun className="h-4 w-4" />
                                                 Toggle Theme
                                             </span>
-                                            <kbd className="font-mono text-[10px]">⌘T</kbd>
                                         </Command.Item>
                                     </Command.Group>
                                 </Command.List>

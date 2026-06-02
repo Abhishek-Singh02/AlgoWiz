@@ -1,4 +1,4 @@
-import { Button, Select, Slider, StatusBadge } from "@components/ui";
+import { Button, Select, Slider, StatusBadge, Tooltip } from "@components/ui";
 import { useWorkspace, useWorkspaceActions } from "@stores";
 import type { MazePreset } from "@stores/workspace";
 import {
@@ -11,7 +11,19 @@ import {
     StepForward,
     Zap,
 } from "lucide-react";
-import { FC } from "react";
+import { FC, type ReactElement } from "react";
+
+const TooltipAction = ({
+    content,
+    children,
+}: {
+    content: string;
+    children: ReactElement;
+}) => (
+    <Tooltip content={content}>
+        <span className="inline-flex">{children}</span>
+    </Tooltip>
+);
 
 const MAZE_OPTIONS: { id: MazePreset; label: string }[] = [
     { id: "simple", label: "simple maze" },
@@ -49,77 +61,121 @@ export const PlaybackControls: FC = () => {
 
     const isRunning = status === "running";
     const isPaused = status === "paused";
+    const playTooltip = isRunning ? "Pause" : isPaused ? "Resume" : "Visualise";
 
     return (
         <div className="shrink-0 flex flex-wrap items-center gap-2 px-3 py-2 border-b border-border bg-elevated/80">
             {category === "pathfinding" && (
-                <Button
-                    variant="generate"
-                    size="sm"
-                    onClick={() => void generateMaze()}
-                    disabled={isRunning}
-                >
-                    <Zap className="h-3.5 w-3.5" />
-                    Generate
-                </Button>
+                <TooltipAction content="Generate maze">
+                    <Button
+                        variant="generate"
+                        size="sm"
+                        onClick={() => void generateMaze()}
+                        disabled={isRunning}
+                    >
+                        <Zap className="h-3.5 w-3.5" />
+                        Generate
+                    </Button>
+                </TooltipAction>
             )}
             {(category === "trees" ||
                 category === "graphs" ||
                 category === "dp") && (
+                <TooltipAction content="Reload preset data">
+                    <Button
+                        variant="reset"
+                        size="sm"
+                        className="w-fit px-2"
+                        onClick={() => reloadCategoryPreset()}
+                        disabled={isRunning}
+                    >
+                        <RotateCcw className="h-3.5 w-3.5" />
+                        Reset preset
+                    </Button>
+                </TooltipAction>
+            )}
+            <TooltipAction content="Reset visualization">
                 <Button
                     variant="reset"
                     size="sm"
-                    className="w-fit px-2"
-                    onClick={() => reloadCategoryPreset()}
+                    onClick={() => resetGrid()}
                     disabled={isRunning}
                 >
                     <RotateCcw className="h-3.5 w-3.5" />
-                    Reset preset
                 </Button>
-            )}
-            <Button variant="reset" size="sm"onClick={() => resetGrid()} disabled={isRunning}>
-                <RotateCcw className="h-3.5 w-3.5" />
-            </Button>
+            </TooltipAction>
             <div className="flex items-center gap-0.5 border-l border-border pl-2">
-                <Button variant="icon" size="sm" onClick={() => skipToStart()} disabled={isRunning}>
-                    <SkipBack className="h-3.5 w-3.5" />
-                </Button>
-                <Button variant="icon" size="sm" onClick={() => stepBackward()} disabled={isRunning}>
-                    <StepBack className="h-3.5 w-3.5" />
-                </Button>
-                <Button
-                    variant="icon"
-                    size="sm"
-                    onClick={() => {
-                        if (isRunning) pause();
-                        else if (isPaused) void play();
-                        else void visualise();
-                    }}
-                >
-                    {isRunning ? (
-                        <Pause className="h-3.5 w-3.5" />
-                    ) : (
-                        <Play className="h-3.5 w-3.5" />
-                    )}
-                </Button>
-                <Button variant="icon" size="sm" onClick={() => stepForward()} disabled={isRunning}>
-                    <StepForward className="h-3.5 w-3.5" />
-                </Button>
-                <Button variant="icon" size="sm" onClick={() => skipToEnd()} disabled={isRunning}>
-                    <SkipForward className="h-3.5 w-3.5" />
-                </Button>
+                <TooltipAction content="Go to start">
+                    <Button
+                        variant="icon"
+                        size="sm"
+                        onClick={() => skipToStart()}
+                        disabled={isRunning}
+                    >
+                        <SkipBack className="h-3.5 w-3.5" />
+                    </Button>
+                </TooltipAction>
+                <TooltipAction content="Step backward">
+                    <Button
+                        variant="icon"
+                        size="sm"
+                        onClick={() => stepBackward()}
+                        disabled={isRunning}
+                    >
+                        <StepBack className="h-3.5 w-3.5" />
+                    </Button>
+                </TooltipAction>
+                <TooltipAction content={playTooltip}>
+                    <Button
+                        variant="icon"
+                        size="sm"
+                        onClick={() => {
+                            if (isRunning) pause();
+                            else if (isPaused) void play();
+                            else void visualise();
+                        }}
+                    >
+                        {isRunning ? (
+                            <Pause className="h-3.5 w-3.5" />
+                        ) : (
+                            <Play className="h-3.5 w-3.5" />
+                        )}
+                    </Button>
+                </TooltipAction>
+                <TooltipAction content="Step forward">
+                    <Button
+                        variant="icon"
+                        size="sm"
+                        onClick={() => stepForward()}
+                        disabled={isRunning}
+                    >
+                        <StepForward className="h-3.5 w-3.5" />
+                    </Button>
+                </TooltipAction>
+                <TooltipAction content="Go to end">
+                    <Button
+                        variant="icon"
+                        size="sm"
+                        onClick={() => skipToEnd()}
+                        disabled={isRunning}
+                    >
+                        <SkipForward className="h-3.5 w-3.5" />
+                    </Button>
+                </TooltipAction>
             </div>
-            <div className="flex items-center gap-2 border-l border-border pl-2">
-                <span className="text-[11px] text-text-tertiary uppercase">speed</span>
-                <Slider
-                    value={[speed]}
-                    onValueChange={([v]) => setSpeed(v)}
-                    min={0.5}
-                    max={8}
-                    step={0.5}
-                />
-                <span className="font-mono text-[11px] text-emerald w-6">{speed}×</span>
-            </div>
+            <Tooltip content="Playback speed">
+                <div className="flex items-center gap-2 border-l border-border pl-2">
+                    <span className="text-[11px] text-text-tertiary uppercase">speed</span>
+                    <Slider
+                        value={[speed]}
+                        onValueChange={([v]) => setSpeed(v)}
+                        min={0.5}
+                        max={8}
+                        step={0.5}
+                    />
+                    <span className="font-mono text-[11px] text-emerald w-6">{speed}×</span>
+                </div>
+            </Tooltip>
             {category === "pathfinding" && (
                 <Select
                     value={mazePreset}
@@ -140,16 +196,18 @@ export const PlaybackControls: FC = () => {
                 />
             )}
             <div className="ml-auto flex items-center gap-2">
-                <Button
-                    variant="visualise"
-                    onClick={() => void visualise()}
-                    disabled={isRunning}
-                    className="hidden sm:inline-flex"
-                    size="sm"
-                >
-                    <Play className="h-3.5 w-3.5" />
-                    Visualise
-                </Button>
+                <TooltipAction content="Run visualization">
+                    <Button
+                        variant="visualise"
+                        onClick={() => void visualise()}
+                        disabled={isRunning}
+                        className="hidden sm:inline-flex"
+                        size="sm"
+                    >
+                        <Play className="h-3.5 w-3.5" />
+                        Visualise
+                    </Button>
+                </TooltipAction>
                 <StatusBadge status={status} />
             </div>
         </div>
