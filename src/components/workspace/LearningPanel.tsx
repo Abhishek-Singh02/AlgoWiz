@@ -383,11 +383,6 @@ export const LearningPanel: FC<LearningPanelProps> = ({
                     </AnimatePresence>
                 )}
             </div>
-            {algo && (
-                <div className="px-4 py-2 border-t border-border font-mono text-[10px] text-text-disabled truncate">
-                    {algo.stubPath}
-                </div>
-            )}
         </aside>
     );
 };

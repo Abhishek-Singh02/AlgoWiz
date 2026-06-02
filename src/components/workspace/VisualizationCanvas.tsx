@@ -62,7 +62,7 @@ export const VisualizationCanvas: FC = () => {
             </AnimatePresence>
             <EmptyStates />
             {stubMessage && (
-                <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 max-w-md px-4 py-2 rounded-lg bg-amber-dim border border-amber/30 text-amber text-xs font-mono text-center">
+                <div className="absolute top-3 left-1/2 -translate-x-1/2 z-30 max-w-md px-4 py-2 rounded-lg bg-amber-dim border border-amber/30 text-amber text-xs text-center">
                     {stubMessage}
                 </div>
             )}

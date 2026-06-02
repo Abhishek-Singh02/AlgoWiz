@@ -1,4 +1,6 @@
+import type { CategoryId } from "@config/algorithms";
 import { DEFAULT_ALGORITHM_ID, getAlgorithmById, MAZE_GENERATORS } from "@config/algorithms";
+import { END_TILE, MAX_COLS, MAX_ROWS, START_TILE } from "@constants";
 import { applyTheme, getStoredTheme, type Theme } from "@lib/theme";
 import type {
     DpStep,
@@ -16,14 +18,6 @@ import type {
     TreeVisualState,
 } from "@libs/algorithms/types";
 import {
-    loadDpPreset,
-    loadGraphPreset,
-    loadTreePreset,
-    createEmptyDpVisual,
-    createEmptyGraphVisual,
-    createEmptyTreeVisual,
-} from "@libs/visualization/presets";
-import {
     applyDpStepAtIndex,
     applyGraphStepAtIndex,
     applyPathfindingStepAtIndex,
@@ -36,14 +30,23 @@ import {
     playSortingSteps,
     playTreeSteps,
 } from "@libs/visualization/player";
-import { END_TILE, MAX_COLS, MAX_ROWS, START_TILE } from "@constants";
+import {
+    createEmptyDpVisual,
+    createEmptyGraphVisual,
+    createEmptyTreeVisual,
+    loadDpPreset,
+    loadGraphPreset,
+    loadTreePreset,
+} from "@libs/visualization/presets";
 import type { GridType, TileType } from "@types";
-import type { CategoryId } from "@config/algorithms";
 import { createGrid } from "@utils/grid";
 import { devtools, subscribeWithSelector } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { shallow } from "zustand/shallow";
 import { createWithEqualityFn } from "zustand/traditional";
+
+const STUB_NOTICE =
+    "Coming soon...";
 
 export type WorkspaceStatus = "idle" | "running" | "paused" | "complete";
 
@@ -534,7 +537,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             }
                         });
 
-                        const { grid, startTile, endTile, mazePreset } = get();
+                        const { grid, startTile, endTile } = get();
                         const result = await mazeGen.run({
                             grid,
                             start: startTile,
@@ -553,7 +556,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                                 draft.grid = result.grid;
                             });
                             set((draft) => {
-                                draft.stubMessage = `Implement maze generator in src/libs/algorithms/maze/${mazePreset === "simple" ? "binary-tree" : mazePreset}.ts`;
+                                draft.stubMessage = STUB_NOTICE;
                             });
                         }
 
@@ -602,7 +605,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             if (output.steps.length === 0) {
                                 set((draft) => {
                                     draft.status = "complete";
-                                    draft.stubMessage = `Implement ${algo.name} in ${algo.stubPath}`;
+                                    draft.stubMessage = STUB_NOTICE;
                                 });
                                 return;
                             }
@@ -634,7 +637,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             if (output.steps.length === 0) {
                                 set((draft) => {
                                     draft.status = "complete";
-                                    draft.stubMessage = `Implement ${algo.name} in ${algo.stubPath}`;
+                                    draft.stubMessage = STUB_NOTICE;
                                 });
                                 return;
                             }
@@ -671,7 +674,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             if (output.steps.length === 0) {
                                 set((draft) => {
                                     draft.status = "complete";
-                                    draft.stubMessage = `Implement ${algo.name} in ${algo.stubPath}`;
+                                    draft.stubMessage = STUB_NOTICE;
                                 });
                                 return;
                             }
@@ -702,7 +705,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             if (output.steps.length === 0) {
                                 set((draft) => {
                                     draft.status = "complete";
-                                    draft.stubMessage = `Implement ${algo.name} in ${algo.stubPath}`;
+                                    draft.stubMessage = STUB_NOTICE;
                                 });
                                 return;
                             }
@@ -733,7 +736,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             if (output.steps.length === 0) {
                                 set((draft) => {
                                     draft.status = "complete";
-                                    draft.stubMessage = `Implement ${algo.name} in ${algo.stubPath}`;
+                                    draft.stubMessage = STUB_NOTICE;
                                 });
                                 return;
                             }
