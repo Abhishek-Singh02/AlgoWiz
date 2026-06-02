@@ -270,7 +270,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                     hasVisited: getHasVisited(),
                     expandedGroups: {
                         pathfinding: true,
-                        sorting: true,
+                        sorting: false,
                         trees: false,
                         graphs: false,
                         dp: false,
@@ -975,6 +975,10 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
 
                     toggleGroupExpanded: (groupId) => {
                         set((draft) => {
+                            for (const groupIdKey in draft.ui.expandedGroups) {
+                                if (groupIdKey === groupId) continue;
+                                draft.ui.expandedGroups[groupIdKey] = false;
+                            }
                             draft.ui.expandedGroups[groupId] =
                                 !draft.ui.expandedGroups[groupId];
                         });
