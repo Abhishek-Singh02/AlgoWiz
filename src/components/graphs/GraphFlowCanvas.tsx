@@ -13,22 +13,26 @@ const nodeTypes = { graphNode: GraphFlowNode };
 const GraphFlowInner: FC = () => {
     const graphState = useWorkspace(({ graphState }) => graphState);
     const graphVisual = useWorkspace(({ graphVisual }) => graphVisual);
-    const showWeights = useWorkspace(({ graphConfig }) => graphConfig.showWeights);
+    const showWeights = useWorkspace(
+        ({ graphConfig }) => graphConfig.showWeights,
+    );
 
     const { nodes, edges } = useMemo(() => {
-        const rfNodes: Node<GraphFlowNodeData>[] = graphState.nodes.map((n, i) => ({
-            id: n.id,
-            type: "graphNode",
-            position: {
-                x: n.x ?? 80 + (i % 3) * 120,
-                y: n.y ?? 60 + Math.floor(i / 3) * 100,
-            },
-            data: {
-                label: n.label,
-                nodeId: n.id,
-                visual: graphVisual,
-            },
-        }));
+        const rfNodes: Node<GraphFlowNodeData>[] = graphState.nodes.map(
+            (n, i) => ({
+                id: n.id,
+                type: "graphNode",
+                position: {
+                    x: n.x ?? 80 + (i % 3) * 120,
+                    y: n.y ?? 60 + Math.floor(i / 3) * 100,
+                },
+                data: {
+                    label: n.label,
+                    nodeId: n.id,
+                    visual: graphVisual,
+                },
+            }),
+        );
 
         const rfEdges: Edge[] = graphState.edges.map((e) => {
             const inMst = graphVisual.mstEdges.includes(e.id);
@@ -38,7 +42,10 @@ const GraphFlowInner: FC = () => {
                 id: e.id,
                 source: e.source,
                 target: e.target,
-                label: showWeights && e.weight != null ? String(e.weight) : undefined,
+                label:
+                    showWeights && e.weight != null
+                        ? String(e.weight)
+                        : undefined,
                 labelStyle: { fill: "var(--text-secondary)", fontSize: 10 },
                 labelBgStyle: {
                     fill: "var(--bg-elevated)",

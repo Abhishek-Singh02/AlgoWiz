@@ -20,13 +20,25 @@ export const GraphFlowNode: FC<NodeProps> = memo(({ data }) => {
             className={cn(
                 "flex h-10 w-10 items-center justify-center rounded-full border font-mono text-sm font-medium shadow-surface",
                 isHighlighted && "border-emerald bg-emerald-dim text-emerald",
-                isVisited && !isHighlighted && "border-sky/40 bg-sky-dim text-sky",
-                !isVisited && !isHighlighted && "border-border bg-elevated text-text-primary",
+                isVisited &&
+                    !isHighlighted &&
+                    "border-sky/40 bg-sky-dim text-sky",
+                !isVisited &&
+                    !isHighlighted &&
+                    "border-border bg-elevated text-text-primary",
             )}
         >
-            <Handle type="target" position={Position.Top} className="!opacity-0 !w-1 !h-1" />
+            <Handle
+                type="target"
+                position={Position.Top}
+                className="!opacity-0 !w-1 !h-1"
+            />
             {label}
-            <Handle type="source" position={Position.Bottom} className="!opacity-0 !w-1 !h-1" />
+            <Handle
+                type="source"
+                position={Position.Bottom}
+                className="!opacity-0 !w-1 !h-1"
+            />
         </div>
     );
 });

@@ -25,9 +25,17 @@ export const TreeFlowNode: FC<NodeProps> = memo(({ data }) => {
                 "flex h-11 min-w-[44px] items-center justify-center rounded-md border px-2 font-mono text-sm shadow-surface transition-colors",
                 isFound && "border-emerald bg-emerald-dim text-emerald",
                 isInserted && !isFound && "border-sky/50 bg-sky-dim text-sky",
-                isCompared && !isFound && "border-amber/50 bg-amber-dim text-amber",
-                isHighlighted && !isCompared && !isFound && "border-violet/50 bg-violet-dim",
-                isVisited && !isHighlighted && !isFound && "border-sky/30 bg-overlay",
+                isCompared &&
+                    !isFound &&
+                    "border-amber/50 bg-amber-dim text-amber",
+                isHighlighted &&
+                    !isCompared &&
+                    !isFound &&
+                    "border-violet/50 bg-violet-dim",
+                isVisited &&
+                    !isHighlighted &&
+                    !isFound &&
+                    "border-sky/30 bg-overlay",
                 !isVisited &&
                     !isHighlighted &&
                     !isFound &&
@@ -35,9 +43,17 @@ export const TreeFlowNode: FC<NodeProps> = memo(({ data }) => {
                 variant === "trie" && "text-xs min-w-[36px] h-9",
             )}
         >
-            <Handle type="target" position={Position.Top} className="!bg-border !w-2 !h-2" />
+            <Handle
+                type="target"
+                position={Position.Top}
+                className="!bg-border !w-2 !h-2"
+            />
             {label}
-            <Handle type="source" position={Position.Bottom} className="!bg-border !w-2 !h-2" />
+            <Handle
+                type="source"
+                position={Position.Bottom}
+                className="!bg-border !w-2 !h-2"
+            />
         </div>
     );
 });

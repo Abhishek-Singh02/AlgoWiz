@@ -14,7 +14,8 @@ const items = [
     },
     {
         label: "swap",
-        className: "border border-rose/45 bg-gradient-to-t from-rose-dim to-rose",
+        className:
+            "border border-rose/45 bg-gradient-to-t from-rose-dim to-rose",
     },
     {
         label: "sorted",

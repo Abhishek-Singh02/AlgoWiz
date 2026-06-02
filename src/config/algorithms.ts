@@ -45,12 +45,7 @@ import type {
     DpFn,
 } from "@libs/algorithms/types";
 
-export type CategoryId =
-    | "pathfinding"
-    | "sorting"
-    | "trees"
-    | "graphs"
-    | "dp";
+export type CategoryId = "pathfinding" | "sorting" | "trees" | "graphs" | "dp";
 
 export type AlgorithmTag =
     | "optimal"

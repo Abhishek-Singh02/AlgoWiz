@@ -43,7 +43,12 @@ const badgeVariants = cva(
 export type BadgeProps = HTMLAttributes<HTMLSpanElement> &
     VariantProps<typeof badgeVariants>;
 
-export const Badge = ({ className, variant, children, ...props }: BadgeProps) => (
+export const Badge = ({
+    className,
+    variant,
+    children,
+    ...props
+}: BadgeProps) => (
     <span className={cn(badgeVariants({ variant }), className)} {...props}>
         {children}
     </span>
@@ -62,13 +67,19 @@ export const StatusBadge = ({
     };
     const dotColor = {
         idle: "bg-text-tertiary",
-        running: "bg-emerald shadow-[0_0_6px_var(--accent-emerald)] animate-pulse",
+        running:
+            "bg-emerald shadow-[0_0_6px_var(--accent-emerald)] animate-pulse",
         paused: "bg-violet",
         complete: "bg-emerald",
     };
     return (
         <Badge variant={map[status]}>
-            <span className={cn("h-1.5 w-1.5 rounded-full shrink-0", dotColor[status])} />
+            <span
+                className={cn(
+                    "h-1.5 w-1.5 rounded-full shrink-0",
+                    dotColor[status],
+                )}
+            />
             {status}
         </Badge>
     );

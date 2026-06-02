@@ -37,11 +37,16 @@ export const PathfinderGrid: FC = () => {
                                 }}
                                 onMouseUp={() => setIsMouseDown(false)}
                                 onMouseLeave={() => {
-                                    if (rowIndex === MAX_ROWS - 1 && colIndex === MAX_COLS - 1) {
+                                    if (
+                                        rowIndex === MAX_ROWS - 1 &&
+                                        colIndex === MAX_COLS - 1
+                                    ) {
                                         setCursor(null);
                                     }
                                 }}
-                                onMouseEnter={() => onMouseEnter(tile.row, tile.col)}
+                                onMouseEnter={() =>
+                                    onMouseEnter(tile.row, tile.col)
+                                }
                             />
                         ))}
                     </div>

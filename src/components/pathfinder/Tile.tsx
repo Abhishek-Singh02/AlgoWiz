@@ -31,7 +31,11 @@ export const Tile: FC<TileProps> = ({ row, col, ...props }) => {
                     isTraversed &&
                     !isFrontier &&
                     "bg-sky/50 animate-traversed",
-                !isStart && !isEnd && !isWall && isPath && "bg-emerald/80 animate-path",
+                !isStart &&
+                    !isEnd &&
+                    !isWall &&
+                    isPath &&
+                    "bg-emerald/80 animate-path",
                 !isStart &&
                     !isEnd &&
                     !isWall &&
@@ -39,7 +43,9 @@ export const Tile: FC<TileProps> = ({ row, col, ...props }) => {
                     !isTraversed &&
                     !isFrontier &&
                     "bg-subtle/50",
-                row === MAX_ROWS - 1 && col === 0 && "border-l border-white/[0.06]",
+                row === MAX_ROWS - 1 &&
+                    col === 0 &&
+                    "border-l border-white/[0.06]",
                 row === MAX_ROWS - 1 && "border-b border-white/[0.06]",
                 col === 0 && "border-l border-white/[0.06]",
             )}

@@ -1,5 +1,8 @@
 import { FlowCanvasShell } from "@components/flow/FlowCanvasShell";
-import { TreeFlowNode, type TreeFlowNodeData } from "@components/trees/TreeFlowNode";
+import {
+    TreeFlowNode,
+    type TreeFlowNodeData,
+} from "@components/trees/TreeFlowNode";
 import { layoutTree } from "@components/trees/treeLayout";
 import { useWorkspace } from "@stores";
 import { ReactFlowProvider, type Edge, type Node } from "@xyflow/react";

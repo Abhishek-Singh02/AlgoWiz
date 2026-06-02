@@ -42,7 +42,9 @@ export const PlaybackControls: FC = () => {
     const speed = useWorkspace(({ speed }) => speed);
     const mazePreset = useWorkspace(({ mazePreset }) => mazePreset);
     const category = useWorkspace(({ category }) => category);
-    const sortingArraySize = useWorkspace(({ sortingArraySize }) => sortingArraySize);
+    const sortingArraySize = useWorkspace(
+        ({ sortingArraySize }) => sortingArraySize,
+    );
     const {
         generateMaze,
         resetGrid,
@@ -165,7 +167,9 @@ export const PlaybackControls: FC = () => {
             </div>
             <Tooltip content="Playback speed">
                 <div className="flex items-center gap-2 border-l border-border pl-2">
-                    <span className="text-[11px] text-text-tertiary uppercase">speed</span>
+                    <span className="text-[11px] text-text-tertiary uppercase">
+                        speed
+                    </span>
                     <Slider
                         value={[speed]}
                         onValueChange={([v]) => setSpeed(v)}
@@ -173,7 +177,9 @@ export const PlaybackControls: FC = () => {
                         max={8}
                         step={0.5}
                     />
-                    <span className="font-mono text-[11px] text-emerald w-6">{speed}×</span>
+                    <span className="font-mono text-[11px] text-emerald w-6">
+                        {speed}×
+                    </span>
                 </div>
             </Tooltip>
             {category === "pathfinding" && (

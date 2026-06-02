@@ -9,8 +9,7 @@ const GRID_LINES = [0.25, 0.5, 0.75];
 const barStyles = {
     default:
         "border-emerald/25 bg-gradient-to-t from-emerald-dim via-emerald/80 to-emerald shadow-[inset_0_1px_0_rgba(255,255,255,0.12)]",
-    sorted:
-        "border-violet/30 bg-gradient-to-t from-violet-dim via-violet/70 to-violet shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]",
+    sorted: "border-violet/30 bg-gradient-to-t from-violet-dim via-violet/70 to-violet shadow-[inset_0_1px_0_rgba(255,255,255,0.1)]",
     compare:
         "border-amber/50 bg-gradient-to-t from-amber-dim via-amber/80 to-amber shadow-[0_0_20px_var(--amber-dim),inset_0_1px_0_rgba(255,255,255,0.15)]",
     swap: "border-rose/50 bg-gradient-to-t from-rose-dim via-rose/80 to-rose shadow-[0_0_20px_var(--rose-dim),inset_0_1px_0_rgba(255,255,255,0.15)]",

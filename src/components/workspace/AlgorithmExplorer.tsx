@@ -16,7 +16,11 @@ import { FC } from "react";
 
 const complexityVariant = (
     v: AlgorithmEntry["complexityVariant"],
-): "complexityEmerald" | "complexityViolet" | "complexityAmber" | "complexityRose" => {
+):
+    | "complexityEmerald"
+    | "complexityViolet"
+    | "complexityAmber"
+    | "complexityRose" => {
     const map = {
         emerald: "complexityEmerald",
         violet: "complexityViolet",
@@ -27,11 +31,7 @@ const complexityVariant = (
 };
 
 const EXPLORER_HINTS: Record<CategoryId, string[]> = {
-    pathfinding: [
-        "click: draw wall",
-        "drag: move node",
-        "shift+drag: weight",
-    ],
+    pathfinding: ["click: draw wall", "drag: move node", "shift+drag: weight"],
     sorting: ["visualise: run sort", "reset: new array"],
     trees: ["visualise: run on tree", "reset: reload preset"],
     graphs: ["visualise: run on graph", "reset: reload preset"],
@@ -107,9 +107,17 @@ export const AlgorithmExplorer: FC = () => {
                                                 <motion.button
                                                     key={algo.id}
                                                     type="button"
-                                                    initial={{ opacity: 0, x: -4 }}
-                                                    animate={{ opacity: 1, x: 0 }}
-                                                    transition={{ delay: i * 0.02 }}
+                                                    initial={{
+                                                        opacity: 0,
+                                                        x: -4,
+                                                    }}
+                                                    animate={{
+                                                        opacity: 1,
+                                                        x: 0,
+                                                    }}
+                                                    transition={{
+                                                        delay: i * 0.02,
+                                                    }}
                                                     onClick={() =>
                                                         selectAlgorithm(algo.id)
                                                     }
@@ -120,7 +128,8 @@ export const AlgorithmExplorer: FC = () => {
                                                             : "text-text-secondary hover:bg-overlay hover:text-text-primary",
                                                     )}
                                                 >
-                                                    {algorithmId === algo.id && (
+                                                    {algorithmId ===
+                                                        algo.id && (
                                                         <span className="absolute left-0 top-1 bottom-1 w-0.5 bg-emerald rounded-r" />
                                                     )}
                                                     <span className="truncate pl-1 min-w-0 flex-1">

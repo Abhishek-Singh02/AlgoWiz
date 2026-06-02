@@ -7,11 +7,7 @@ export type PathfindingStep =
     | { kind: "frontier"; tile: TileRef }
     | { kind: "path"; tile: TileRef };
 
-export type HeuristicType =
-    | "manhattan"
-    | "euclidean"
-    | "chebyshev"
-    | "octile";
+export type HeuristicType = "manhattan" | "euclidean" | "chebyshev" | "octile";
 
 export type PathfindingInput = {
     grid: GridType;
@@ -77,7 +73,12 @@ export type TreeStep =
     | { kind: "visit"; nodeId: string }
     | { kind: "highlight"; nodeIds: string[] }
     | { kind: "compare"; nodeIds: [string, string] }
-    | { kind: "insert"; nodeId: string; value: number | string; parentId?: string }
+    | {
+          kind: "insert";
+          nodeId: string;
+          value: number | string;
+          parentId?: string;
+      }
     | { kind: "delete"; nodeId: string }
     | { kind: "rotate"; nodeIds: string[] }
     | { kind: "found"; nodeId: string };

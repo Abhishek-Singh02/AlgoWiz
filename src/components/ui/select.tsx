@@ -1,4 +1,8 @@
-import { Popover, PopoverContent, PopoverTrigger } from "@components/ui/popover";
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "@components/ui/popover";
 import { cn } from "@utils";
 import { Check, ChevronDown } from "lucide-react";
 import { FC, useState } from "react";

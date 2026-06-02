@@ -21,7 +21,10 @@ export type PlayerCallbacks = {
         updater: (tile: TileType) => void,
     ) => void;
     setSortingArray: (array: number[]) => void;
-    setSortingHighlight: (indices: number[], type: "compare" | "swap" | null) => void;
+    setSortingHighlight: (
+        indices: number[],
+        type: "compare" | "swap" | null,
+    ) => void;
     clearSortingSorted?: () => void;
     markSortingSorted?: (index: number) => void;
     setTreeVisual?: (visual: TreeVisualState) => void;
@@ -108,7 +111,10 @@ const emptyTreeVisual = (): TreeVisualState => ({
     inserted: null,
 });
 
-const applyTreeStep = (step: TreeStep, visual: TreeVisualState): TreeVisualState => {
+const applyTreeStep = (
+    step: TreeStep,
+    visual: TreeVisualState,
+): TreeVisualState => {
     const next = { ...visual, highlighted: [...visual.highlighted] };
     switch (step.kind) {
         case "visit":

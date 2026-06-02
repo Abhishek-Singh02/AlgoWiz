@@ -17,7 +17,10 @@ export const layoutTree = (
         if (!node) return;
 
         if (snapshot.variant === "trie" && node.children) {
-            positions.set(nodeId, { x: index * H_SPACING, y: depth * V_SPACING });
+            positions.set(nodeId, {
+                x: index * H_SPACING,
+                y: depth * V_SPACING,
+            });
             index++;
             for (const childId of node.children) {
                 walk(childId, depth + 1);

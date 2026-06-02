@@ -89,14 +89,24 @@ export const CommandPalette: FC = () => {
                                                 value={`${algo.name} ${algo.id}`}
                                                 onSelect={() => {
                                                     selectAlgorithm(algo.id);
-                                                    setCommandPaletteOpen(false);
+                                                    setCommandPaletteOpen(
+                                                        false,
+                                                    );
                                                 }}
                                                 className="flex items-center justify-between gap-2 px-2 py-2 rounded-md text-[13px] text-text-secondary aria-selected:bg-emerald-dim aria-selected:text-text-primary cursor-pointer"
                                             >
                                                 <span>{algo.name}</span>
                                                 {algo.category && (
                                                     <kbd className="font-mono text-[10px] bg-subtle px-1.5 rounded border border-white/10">
-                                                        {algo.category.length > 2 ? algo.category.charAt(0).toUpperCase() + algo.category.slice(1) : algo.category.toUpperCase()}
+                                                        {algo.category.length >
+                                                        2
+                                                            ? algo.category
+                                                                  .charAt(0)
+                                                                  .toUpperCase() +
+                                                              algo.category.slice(
+                                                                  1,
+                                                              )
+                                                            : algo.category.toUpperCase()}
                                                     </kbd>
                                                 )}
                                             </Command.Item>

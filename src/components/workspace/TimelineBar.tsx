@@ -57,8 +57,7 @@ export const TimelineBar: FC = () => {
             ? Date.now() - runStartTime
             : metrics.elapsedMs;
 
-    const showNodes =
-        category === "pathfinding" || category === "graphs";
+    const showNodes = category === "pathfinding" || category === "graphs";
 
     const onScrub = useCallback(
         (clientX: number) => {
@@ -128,7 +127,9 @@ export const TimelineBar: FC = () => {
                             </span>
                         </span>
                     ) : (
-                        <span className="hidden md:inline opacity-0">NODES</span>
+                        <span className="hidden md:inline opacity-0">
+                            NODES
+                        </span>
                     )}
                     <span className="hidden md:inline">
                         TIME{" "}

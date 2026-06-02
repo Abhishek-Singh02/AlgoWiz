@@ -58,8 +58,8 @@ export const WorkspaceLayout: FC = () => {
 
                     <div className="lg:hidden flex flex-col h-full min-h-0 w-full">
                         <p className="shrink-0 px-3 py-1.5 text-center text-[11px] text-amber/90 bg-amber-dim border-b border-amber/20">
-                            AlgoWiz works best on desktop — full panels and timeline
-                            controls.
+                            AlgoWiz works best on desktop — full panels and
+                            timeline controls.
                         </p>
                         <PlaybackControls />
                         <VisualizationCanvas />

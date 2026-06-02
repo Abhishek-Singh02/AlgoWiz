@@ -46,7 +46,9 @@ export const TopNav: FC = () => {
             <Button
                 variant="icon"
                 onClick={() => toggleTheme()}
-                aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+                aria-label={
+                    isDark ? "Switch to light mode" : "Switch to dark mode"
+                }
             >
                 {isDark ? (
                     <Sun className="h-4 w-4" />

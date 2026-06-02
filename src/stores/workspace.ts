@@ -1,5 +1,9 @@
 import type { CategoryId } from "@config/algorithms";
-import { DEFAULT_ALGORITHM_ID, getAlgorithmById, MAZE_GENERATORS } from "@config/algorithms";
+import {
+    DEFAULT_ALGORITHM_ID,
+    getAlgorithmById,
+    MAZE_GENERATORS,
+} from "@config/algorithms";
 import { END_TILE, MAX_COLS, MAX_ROWS, START_TILE } from "@constants";
 import { applyTheme, getStoredTheme, type Theme } from "@lib/theme";
 import type {
@@ -45,8 +49,7 @@ import { immer } from "zustand/middleware/immer";
 import { shallow } from "zustand/shallow";
 import { createWithEqualityFn } from "zustand/traditional";
 
-const STUB_NOTICE =
-    "Coming soon...";
+const STUB_NOTICE = "Coming soon...";
 
 export type WorkspaceStatus = "idle" | "running" | "paused" | "complete";
 
@@ -299,7 +302,11 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                                 }),
                             markSortingSorted: (index) =>
                                 set((draft) => {
-                                    if (!draft.sortingSortedIndices.includes(index)) {
+                                    if (
+                                        !draft.sortingSortedIndices.includes(
+                                            index,
+                                        )
+                                    ) {
                                         draft.sortingSortedIndices.push(index);
                                     }
                                 }),
@@ -317,12 +324,11 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                                 }),
                             setGraphLabels: (labels) =>
                                 set((draft) => {
-                                    draft.graphState.nodes = draft.graphState.nodes.map(
-                                        (n) => ({
+                                    draft.graphState.nodes =
+                                        draft.graphState.nodes.map((n) => ({
                                             ...n,
                                             label: labels[n.id] ?? n.label,
-                                        }),
-                                    );
+                                        }));
                                 }),
                             setDpTable: (table) =>
                                 set((draft) => {
@@ -355,13 +361,17 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             draft.graphSteps = [];
                             draft.dpSteps = [];
                             draft.sortingSortedIndices = [];
-                            draft.sortingHighlight = { indices: [], type: null };
+                            draft.sortingHighlight = {
+                                indices: [],
+                                type: null,
+                            };
                             draft.treeVisual = createEmptyTreeVisual();
                             draft.graphVisual = createEmptyGraphVisual();
                             draft.dpVisual = createEmptyDpVisual();
                             draft.stubMessage = null;
                             clearGridVisualization(draft.grid);
-                            if (preset.treeState) draft.treeState = preset.treeState;
+                            if (preset.treeState)
+                                draft.treeState = preset.treeState;
                             if (preset.graphState) {
                                 draft.graphState = preset.graphState;
                                 draft.graphConfig.directed =
@@ -401,8 +411,12 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
 
                     setPathfindingConfig: (key, value) => {
                         set((draft) => {
-                            (draft.pathfindingConfig as Record<string, unknown>)[key] =
-                                value;
+                            (
+                                draft.pathfindingConfig as Record<
+                                    string,
+                                    unknown
+                                >
+                            )[key] = value;
                         });
                     },
 
@@ -431,7 +445,10 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
 
                     resetGrid: () => {
                         const { algorithmId, category } = get();
-                        const preset = loadCategoryPreset(algorithmId, category);
+                        const preset = loadCategoryPreset(
+                            algorithmId,
+                            category,
+                        );
                         set((draft) => {
                             draft.status = "idle";
                             draft.stepIndex = 0;
@@ -485,8 +502,12 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                     setSortingArraySize: (size) => {
                         set((draft) => {
                             draft.sortingArraySize = size;
-                            draft.sortingArray = createInitialSortingArray(size);
-                            draft.sortingHighlight = { indices: [], type: null };
+                            draft.sortingArray =
+                                createInitialSortingArray(size);
+                            draft.sortingHighlight = {
+                                indices: [],
+                                type: null,
+                            };
                             draft.sortingSortedIndices = [];
                             draft.sortingSteps = [];
                             draft.stepIndex = 0;
@@ -582,8 +603,12 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                         });
 
                         if (algo.category === "pathfinding") {
-                            const { grid, startTile, endTile, pathfindingConfig } =
-                                get();
+                            const {
+                                grid,
+                                startTile,
+                                endTile,
+                                pathfindingConfig,
+                            } = get();
                             set((draft) => {
                                 clearGridVisualization(draft.grid);
                             });
@@ -592,13 +617,15 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                                 start: startTile,
                                 end: endTile,
                                 heuristic: pathfindingConfig.heuristic,
-                                allowDiagonals: pathfindingConfig.allowDiagonals,
+                                allowDiagonals:
+                                    pathfindingConfig.allowDiagonals,
                                 bidirectional: pathfindingConfig.bidirectional,
                             });
 
                             set((draft) => {
                                 draft.pathfindingSteps = output.steps;
-                                draft.metrics.comparisons = output.stats.comparisons;
+                                draft.metrics.comparisons =
+                                    output.stats.comparisons;
                                 draft.metrics.nodes = output.stats.nodes;
                             });
 
@@ -622,16 +649,22 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             );
                         } else if (algo.category === "sorting") {
                             set((draft) => {
-                                draft.sortingHighlight = { indices: [], type: null };
+                                draft.sortingHighlight = {
+                                    indices: [],
+                                    type: null,
+                                };
                                 draft.sortingSortedIndices = [];
                             });
                             const { sortingArray } = get();
-                            const output = await algo.run({ array: sortingArray });
+                            const output = await algo.run({
+                                array: sortingArray,
+                            });
 
                             set((draft) => {
                                 draft.sortingInitialArray = [...sortingArray];
                                 draft.sortingSteps = output.steps;
-                                draft.metrics.comparisons = output.stats.comparisons;
+                                draft.metrics.comparisons =
+                                    output.stats.comparisons;
                             });
 
                             if (output.steps.length === 0) {
@@ -669,7 +702,8 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             }
                             set((draft) => {
                                 draft.treeSteps = output.steps;
-                                draft.metrics.comparisons = output.stats.comparisons;
+                                draft.metrics.comparisons =
+                                    output.stats.comparisons;
                             });
                             if (output.steps.length === 0) {
                                 set((draft) => {
@@ -699,7 +733,8 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             });
                             set((draft) => {
                                 draft.graphSteps = output.steps;
-                                draft.metrics.comparisons = output.stats.comparisons;
+                                draft.metrics.comparisons =
+                                    output.stats.comparisons;
                                 draft.metrics.nodes = output.stats.nodes;
                             });
                             if (output.steps.length === 0) {
@@ -722,16 +757,21 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             const { dpInitialTable } = get();
                             const tableInput = {
                                 ...dpInitialTable,
-                                cells: dpInitialTable.cells.map((row) => [...row]),
+                                cells: dpInitialTable.cells.map((row) => [
+                                    ...row,
+                                ]),
                             };
                             set((draft) => {
                                 draft.dpState = tableInput;
                                 draft.dpVisual = createEmptyDpVisual();
                             });
-                            const output = await algo.run({ table: tableInput });
+                            const output = await algo.run({
+                                table: tableInput,
+                            });
                             set((draft) => {
                                 draft.dpSteps = output.steps;
-                                draft.metrics.comparisons = output.stats.comparisons;
+                                draft.metrics.comparisons =
+                                    output.stats.comparisons;
                             });
                             if (output.steps.length === 0) {
                                 set((draft) => {
@@ -1020,5 +1060,4 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
     shallow,
 );
 
-export const useWorkspaceActions = () =>
-    useWorkspace((s) => s.actions);
+export const useWorkspaceActions = () => useWorkspace((s) => s.actions);

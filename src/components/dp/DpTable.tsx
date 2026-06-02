@@ -39,14 +39,17 @@ export const DpTable: FC = () => {
                         <thead>
                             <tr>
                                 <th className="p-1.5 text-text-tertiary font-normal" />
-                                {Array.from({ length: dpState.cols }, (_, col) => (
-                                    <th
-                                        key={col}
-                                        className="p-1.5 min-w-[40px] text-center text-text-tertiary font-normal"
-                                    >
-                                        {dpState.colLabels?.[col] ?? col}
-                                    </th>
-                                ))}
+                                {Array.from(
+                                    { length: dpState.cols },
+                                    (_, col) => (
+                                        <th
+                                            key={col}
+                                            className="p-1.5 min-w-[40px] text-center text-text-tertiary font-normal"
+                                        >
+                                            {dpState.colLabels?.[col] ?? col}
+                                        </th>
+                                    ),
+                                )}
                             </tr>
                         </thead>
                         <tbody>
@@ -57,12 +60,15 @@ export const DpTable: FC = () => {
                                     </th>
                                     {rowCells.map((cell, colIdx) => {
                                         const key = `${rowIdx},${colIdx}`;
-                                        const isHighlight = highlightSet.has(key);
+                                        const isHighlight =
+                                            highlightSet.has(key);
                                         const isCompare = compareSet.has(key);
-                                        const isSolution = dpVisual.solutionPath.some(
-                                            (c) =>
-                                                c.row === rowIdx && c.col === colIdx,
-                                        );
+                                        const isSolution =
+                                            dpVisual.solutionPath.some(
+                                                (c) =>
+                                                    c.row === rowIdx &&
+                                                    c.col === colIdx,
+                                            );
                                         return (
                                             <td key={colIdx} className="p-0.5">
                                                 <div

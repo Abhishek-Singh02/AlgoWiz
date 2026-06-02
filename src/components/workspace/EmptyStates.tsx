@@ -18,7 +18,9 @@ const useEmptyState = (): EmptyStateType => {
     const grid = useWorkspace(({ grid }) => grid);
     const category = useWorkspace(({ category }) => category);
     const status = useWorkspace(({ status }) => status);
-    const pathfindingSteps = useWorkspace(({ pathfindingSteps }) => pathfindingSteps);
+    const pathfindingSteps = useWorkspace(
+        ({ pathfindingSteps }) => pathfindingSteps,
+    );
     if (!hasVisited) return "welcome";
     if (!algorithmId) return "no-algorithm";
 

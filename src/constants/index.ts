@@ -9,7 +9,7 @@ export const START_TILE: TileType = {
     isStart: true,
     isWall: false,
     isEnd: false,
-    distance:Infinity
+    distance: Infinity,
 };
 
 export const END_TILE: TileType = {
@@ -18,5 +18,5 @@ export const END_TILE: TileType = {
     isStart: false,
     isWall: false,
     isEnd: true,
-    distance:Infinity
+    distance: Infinity,
 };

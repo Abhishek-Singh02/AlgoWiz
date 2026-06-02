@@ -182,10 +182,14 @@ export const LearningPanel: FC<LearningPanelProps> = ({
                                                 </label>
                                                 <input
                                                     type="number"
-                                                    value={treeConfig.insertValue}
+                                                    value={
+                                                        treeConfig.insertValue
+                                                    }
                                                     onChange={(e) =>
                                                         setTreeInsertValue(
-                                                            Number(e.target.value),
+                                                            Number(
+                                                                e.target.value,
+                                                            ),
                                                         )
                                                     }
                                                     className="w-full rounded-md border border-border bg-overlay px-2 py-1.5 font-mono text-sm text-text-primary"
@@ -193,8 +197,12 @@ export const LearningPanel: FC<LearningPanelProps> = ({
                                             </div>
                                             <Switch
                                                 label="Show null children"
-                                                checked={treeConfig.showNullChildren}
-                                                onCheckedChange={setTreeShowNullChildren}
+                                                checked={
+                                                    treeConfig.showNullChildren
+                                                }
+                                                onCheckedChange={
+                                                    setTreeShowNullChildren
+                                                }
                                             />
                                         </div>
                                     )}
@@ -207,14 +215,22 @@ export const LearningPanel: FC<LearningPanelProps> = ({
                                                 label="Directed graph"
                                                 checked={graphConfig.directed}
                                                 onCheckedChange={(v) =>
-                                                    setGraphConfig("directed", v)
+                                                    setGraphConfig(
+                                                        "directed",
+                                                        v,
+                                                    )
                                                 }
                                             />
                                             <Switch
                                                 label="Show edge weights"
-                                                checked={graphConfig.showWeights}
+                                                checked={
+                                                    graphConfig.showWeights
+                                                }
                                                 onCheckedChange={(v) =>
-                                                    setGraphConfig("showWeights", v)
+                                                    setGraphConfig(
+                                                        "showWeights",
+                                                        v,
+                                                    )
                                                 }
                                             />
                                         </div>
@@ -228,16 +244,16 @@ export const LearningPanel: FC<LearningPanelProps> = ({
                                                 {dpState.rows} × {dpState.cols}
                                             </p>
                                             {dpState.meta &&
-                                                Object.entries(dpState.meta).map(
-                                                    ([k, v]) => (
-                                                        <p
-                                                            key={k}
-                                                            className="font-mono text-[10px] text-text-tertiary"
-                                                        >
-                                                            {k}: {v}
-                                                        </p>
-                                                    ),
-                                                )}
+                                                Object.entries(
+                                                    dpState.meta,
+                                                ).map(([k, v]) => (
+                                                    <p
+                                                        key={k}
+                                                        className="font-mono text-[10px] text-text-tertiary"
+                                                    >
+                                                        {k}: {v}
+                                                    </p>
+                                                ))}
                                         </div>
                                     )}
                                     {category === "pathfinding" && (
