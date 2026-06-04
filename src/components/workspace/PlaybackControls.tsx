@@ -165,23 +165,25 @@ export const PlaybackControls: FC = () => {
                     </Button>
                 </TooltipAction>
             </div>
-            <Tooltip content="Playback speed">
-                <div className="flex items-center gap-2 border-l border-border pl-2">
-                    <span className="text-[11px] text-text-tertiary uppercase">
+            <div className="flex items-center gap-2.5 border-l border-border pl-2">
+                <Tooltip content="Playback speed">
+                    <span className="cursor-default text-[11px] uppercase text-text-tertiary">
                         speed
                     </span>
-                    <Slider
-                        value={[speed]}
-                        onValueChange={([v]) => setSpeed(v)}
-                        min={0.5}
-                        max={8}
-                        step={0.5}
-                    />
-                    <span className="font-mono text-[11px] text-emerald w-6">
-                        {speed}×
-                    </span>
-                </div>
-            </Tooltip>
+                </Tooltip>
+                <Slider
+                    className="w-[7.5rem] sm:w-32"
+                    value={[speed]}
+                    onValueChange={([v]) => setSpeed(v)}
+                    min={0.5}
+                    max={8}
+                    step={0.5}
+                    aria-label="Playback speed"
+                />
+                <span className="w-7 shrink-0 font-mono text-[11px] tabular-nums text-emerald">
+                    {speed}×
+                </span>
+            </div>
             {category === "pathfinding" && (
                 <Select
                     value={mazePreset}
