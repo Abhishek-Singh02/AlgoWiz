@@ -57,7 +57,7 @@ export const SortingBars: FC = () => {
                         ))}
                     </div>
 
-                    <div className="relative z-[1] flex flex-1 items-end gap-[2px] md:gap-1">
+                    <div className="relative z-[1] flex flex-1 items-end justify-center gap-[2px] md:gap-1">
                         {sortingArray.map((value, i) => {
                             const isHighlighted = highlight.indices.includes(i);
                             const isCompare =
