@@ -75,7 +75,7 @@ export const TimelineBar: FC = () => {
     );
 
     return (
-        <footer className="h-20 shrink-0 border-t border-border bg-elevated px-4 flex flex-col justify-center gap-2">
+        <footer className="h-20 shrink-0 border-t border-border bg-elevated px-4 flex flex-col justify-center gap-2 select-none">
             <div className="flex items-center gap-4">
                 <div
                     ref={trackRef}

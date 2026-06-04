@@ -14,6 +14,8 @@ import type {
 import type { GridType, TileType } from "@types";
 import { sleep } from "@utils/helpers";
 
+const stepDelay = (speed: number, baseMs = 200) => Math.max(5, baseMs / speed);
+
 export type PlayerCallbacks = {
     setTile: (
         row: number,
@@ -88,18 +90,17 @@ export const applyPathfindingStepAtIndex = (
 
 export const playPathfindingSteps = async (
     steps: PathfindingStep[],
-    speed: number,
+    getSpeed: () => number,
     _grid: GridType,
     callbacks: PlayerCallbacks,
     startIndex = 0,
     shouldContinue?: () => boolean,
 ) => {
-    const delay = Math.max(5, 200 / speed);
     for (let i = startIndex; i < steps.length; i++) {
         if (shouldContinue && !shouldContinue()) break;
         applyPathfindingStep(steps[i], callbacks.setTile);
         callbacks.onStep?.(i);
-        await sleep(delay);
+        await sleep(stepDelay(getSpeed()));
     }
 };
 
@@ -163,12 +164,11 @@ export const applyTreeStepAtIndex = (
 
 export const playTreeSteps = async (
     steps: TreeStep[],
-    speed: number,
+    getSpeed: () => number,
     callbacks: PlayerCallbacks,
     startIndex = 0,
     shouldContinue?: () => boolean,
 ) => {
-    const delay = Math.max(5, 200 / speed);
     let visual = emptyTreeVisual();
     for (let i = 0; i < startIndex && i < steps.length; i++) {
         visual = applyTreeStep(steps[i], visual);
@@ -180,7 +180,7 @@ export const playTreeSteps = async (
         visual = applyTreeStep(steps[i], visual);
         callbacks.setTreeVisual?.(visual);
         callbacks.onStep?.(i);
-        await sleep(delay);
+        await sleep(stepDelay(getSpeed()));
     }
 };
 
@@ -260,12 +260,11 @@ export const applyGraphStepAtIndex = (
 
 export const playGraphSteps = async (
     steps: GraphStep[],
-    speed: number,
+    getSpeed: () => number,
     callbacks: PlayerCallbacks,
     startIndex = 0,
     shouldContinue?: () => boolean,
 ) => {
-    const delay = Math.max(5, 200 / speed);
     let visual = emptyGraphVisual();
     for (let i = 0; i < startIndex && i < steps.length; i++) {
         visual = applyGraphStep(steps[i], visual);
@@ -280,7 +279,7 @@ export const playGraphSteps = async (
             callbacks.setGraphLabels?.(visual.labels);
         }
         callbacks.onStep?.(i);
-        await sleep(delay);
+        await sleep(stepDelay(getSpeed()));
     }
 };
 
@@ -348,13 +347,12 @@ export const applyDpStepAtIndex = (
 
 export const playDpSteps = async (
     steps: DpStep[],
-    speed: number,
+    getSpeed: () => number,
     initialTable: DpTableState,
     callbacks: PlayerCallbacks,
     startIndex = 0,
     shouldContinue?: () => boolean,
 ) => {
-    const delay = Math.max(5, 200 / speed);
     let table: DpTableState = {
         ...initialTable,
         cells: initialTable.cells.map((row) => [...row]),
@@ -377,7 +375,7 @@ export const playDpSteps = async (
         callbacks.setDpTable?.(table);
         callbacks.setDpVisual?.(visual);
         callbacks.onStep?.(i);
-        await sleep(delay);
+        await sleep(stepDelay(getSpeed()));
     }
 };
 
@@ -387,7 +385,7 @@ export const applySortingStepAtIndex = (
     initialArray: number[],
     callbacks: PlayerCallbacks,
 ) => {
-    const working = [...initialArray];
+    const working = Array.from(initialArray);
     callbacks.clearSortingSorted?.();
     callbacks.setSortingHighlight([], null);
 
@@ -410,11 +408,10 @@ export const applySortingStepAtIndex = (
 
 export const playMazeSteps = async (
     steps: MazeStep[],
-    speed: number,
+    getSpeed: () => number,
     callbacks: PlayerCallbacks,
     shouldContinue?: () => boolean,
 ) => {
-    const delay = Math.max(5, 150 / speed);
     for (const step of steps) {
         if (shouldContinue && !shouldContinue()) break;
         const { row, col } = step.tile;
@@ -422,20 +419,19 @@ export const playMazeSteps = async (
             if (tile.isStart || tile.isEnd) return;
             tile.isWall = step.kind === "wall";
         });
-        await sleep(delay);
+        await sleep(stepDelay(getSpeed(), 150));
     }
 };
 
 export const playSortingSteps = async (
     steps: SortingStep[],
-    speed: number,
+    getSpeed: () => number,
     array: number[],
     callbacks: PlayerCallbacks,
     startIndex = 0,
     shouldContinue?: () => boolean,
 ) => {
-    const delay = Math.max(5, 200 / speed);
-    const working = [...array];
+    const working = Array.from(array);
     for (let i = 0; i <= startIndex && i < steps.length; i++) {
         const step = steps[i];
         if (step.kind === "swap") {
@@ -443,7 +439,7 @@ export const playSortingSteps = async (
             [working[a], working[b]] = [working[b], working[a]];
         }
     }
-    callbacks.setSortingArray(working);
+    callbacks.setSortingArray(Array.from(working));
     callbacks.setSortingHighlight([], null);
     callbacks.clearSortingSorted?.();
 
@@ -462,7 +458,7 @@ export const playSortingSteps = async (
             callbacks.setSortingHighlight([], null);
         }
         callbacks.onStep?.(i);
-        await sleep(delay);
+        await sleep(stepDelay(getSpeed()));
     }
 };
 

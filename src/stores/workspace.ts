@@ -568,7 +568,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                         if (result.steps.length > 0) {
                             await playMazeSteps(
                                 result.steps,
-                                get().speed,
+                                () => get().speed,
                                 get().actions.getPlayerCallbacks(),
                                 () => !get()._abortPlayback,
                             );
@@ -639,7 +639,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
 
                             await playPathfindingSteps(
                                 output.steps,
-                                get().speed,
+                                () => get().speed,
                                 get().grid,
                                 get().actions.getPlayerCallbacks(),
                                 get().stepIndex,
@@ -677,8 +677,8 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
 
                             await playSortingSteps(
                                 output.steps,
-                                get().speed,
-                                get().sortingArray,
+                                () => get().speed,
+                                get().sortingInitialArray,
                                 get().actions.getPlayerCallbacks(),
                                 get().stepIndex,
                                 () =>
@@ -714,7 +714,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             }
                             await playTreeSteps(
                                 output.steps,
-                                get().speed,
+                                () => get().speed,
                                 get().actions.getPlayerCallbacks(),
                                 get().stepIndex,
                                 () =>
@@ -746,7 +746,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             }
                             await playGraphSteps(
                                 output.steps,
-                                get().speed,
+                                () => get().speed,
                                 get().actions.getPlayerCallbacks(),
                                 get().stepIndex,
                                 () =>
@@ -782,7 +782,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                             }
                             await playDpSteps(
                                 output.steps,
-                                get().speed,
+                                () => get().speed,
                                 get().dpInitialTable,
                                 get().actions.getPlayerCallbacks(),
                                 get().stepIndex,
