@@ -55,7 +55,7 @@ export type WorkspaceStatus = "idle" | "running" | "paused" | "complete";
 
 export type MazePreset = "simple" | "recursive-division" | "random-walls";
 
-const createInitialSortingArray = (size = 32) =>
+const createInitialSortingArray = (size = 16) =>
     Array.from({ length: size }, () => Math.floor(Math.random() * 90) + 10);
 
 const loadCategoryPreset = (
@@ -231,7 +231,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                 sortingInitialArray: createInitialSortingArray(),
                 sortingHighlight: { indices: [], type: null },
                 sortingSortedIndices: [],
-                sortingArraySize: 32,
+                sortingArraySize: 16,
                 treeState: loadTreePreset("bst-insert"),
                 treeVisual: createEmptyTreeVisual(),
                 treeSteps: [],
@@ -248,7 +248,7 @@ export const useWorkspace = createWithEqualityFn<WorkspaceState>()(
                 dpVisual: createEmptyDpVisual(),
                 dpSteps: [],
                 status: "idle",
-                speed: 4,
+                speed: 1,
                 stepIndex: 0,
                 pathfindingSteps: [],
                 sortingSteps: [],
